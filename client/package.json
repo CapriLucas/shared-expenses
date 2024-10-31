@@ -1,23 +1,21 @@
 {
-  "name": "shared-expenses",
+  "name": "shared-expenses-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.117",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "pg": "^8.13.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@react-oauth/google": "^0.11.0",
+    "@types/node": "^16.18.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/react-query": "^1.2.9",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.0",
+    "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
-    "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,8 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

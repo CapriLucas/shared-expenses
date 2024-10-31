@@ -1,46 +1,34 @@
-# Getting Started with Create React App
+# Shared Expenses App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based shared expenses management system that allows users to track and manage shared expenses with others.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User authentication via Google OAuth
+- Create and manage shared expenses
+- Support for recurring expenses (monthly, weekly, yearly)
+- Payment verification with receipt upload
+- Real-time expense tracking and notifications
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Frontend
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React.js (TypeScript)
+- Custom CSS (no UI libraries)
+- React Router for navigation
+- React Query for data fetching
 
-### `npm test`
+### Backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js with Express
+- PostgreSQL database
+- TypeORM for database management
+- AuthJs 2.0 for authentication
+- File storage for receipts
 
-### `npm run build`
+## Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Instructions:
+I want to create a project with reactJS. Without any css library or components library as chakra-ui. This project will be a simple shared expenses system. Where we can create users (only using google oauth) and then each user will create shared expenses with another users (these can be recurrent per month, year, weeks). So then the other user can create a pay confirmed request uploading a file with the transfer receipt.
+As Database I want to use any cheap sql (mysql, postgresql) with typeorm as ORM
