@@ -1,24 +1,28 @@
-import React from "react";
-import { useMutation, useQuery } from "react-query";
+import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createExpense, searchUsers } from "../services/api";
 import { RecurrenceType } from "../types/expense";
 import { User } from "../types/user";
+import { useDateFormat } from "../utils/dateFormat";
 import styles from "../styles/ExpenseForm.module.css";
 
 const ExpenseForm: React.FC = () => {
   const navigate = useNavigate();
-  const [description, setDescription] = React.useState("");
-  const [amount, setAmount] = React.useState("");
-  const [dueDate, setDueDate] = React.useState("");
-  const [recurrenceType, setRecurrenceType] = React.useState<RecurrenceType>(
+  const queryClient = useQueryClient();
+  const { parseDate } = useDateFormat();
+
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [recurrenceType, setRecurrenceType] = useState<RecurrenceType>(
     RecurrenceType.NONE
   );
-  const [recurrenceEndDate, setRecurrenceEndDate] = React.useState("");
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedPayer, setSelectedPayer] = React.useState<User | null>(null);
+  const [recurrenceEndDate, setRecurrenceEndDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPayer, setSelectedPayer] = useState<User | null>(null);
 
-  const { data: users } = useQuery<User[]>(
+  const { data: users } = useQuery(
     ["users", searchQuery],
     () => searchUsers(searchQuery),
     {
@@ -28,6 +32,7 @@ const ExpenseForm: React.FC = () => {
 
   const createExpenseMutation = useMutation(createExpense, {
     onSuccess: () => {
+      queryClient.invalidateQueries("expenses");
       navigate("/");
     },
   });
@@ -39,9 +44,11 @@ const ExpenseForm: React.FC = () => {
     createExpenseMutation.mutate({
       description,
       amount: parseFloat(amount),
-      dueDate,
+      dueDate: parseDate(dueDate).toISOString(),
       recurrenceType,
-      recurrenceEndDate: recurrenceEndDate || null,
+      recurrenceEndDate: recurrenceEndDate
+        ? parseDate(recurrenceEndDate).toISOString()
+        : null,
       payerId: selectedPayer.id,
     });
   };
@@ -102,12 +109,15 @@ const ExpenseForm: React.FC = () => {
 
         {recurrenceType !== RecurrenceType.NONE && (
           <div className={styles.formGroup}>
-            <label htmlFor="recurrenceEndDate">Recurrence End Date</label>
+            <label htmlFor="recurrenceEndDate">
+              Recurrence End Date (Optional)
+            </label>
             <input
               id="recurrenceEndDate"
               type="date"
               value={recurrenceEndDate}
               onChange={(e) => setRecurrenceEndDate(e.target.value)}
+              min={dueDate}
             />
           </div>
         )}
@@ -121,7 +131,7 @@ const ExpenseForm: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search users..."
           />
-          {users && (
+          {users && users.length > 0 && (
             <div className={styles.userList}>
               {users.map((user) => (
                 <div

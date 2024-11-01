@@ -5,12 +5,14 @@ import { getExpenses } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import styles from "../styles/Dashboard.module.css";
 import { Expense } from "../types/expense";
+import { useDateFormat } from "../utils/dateFormat";
 
 type TabType = "created" | "payable" | "paid";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>("created");
+  const { formatDate } = useDateFormat();
 
   const {
     data: expenses,
@@ -97,7 +99,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div className={styles.expenseDetails}>
               <div>
-                <p>Due: {new Date(expense.dueDate).toLocaleDateString()}</p>
+                <p>Due: {formatDate(expense.dueDate)}</p>
                 <p className={styles.participant}>
                   {activeTab === "paid"
                     ? expense.creator.id === user?.id

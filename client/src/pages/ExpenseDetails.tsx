@@ -6,11 +6,13 @@ import { useAuth } from "../context/AuthContext";
 import styles from "../styles/ExpenseDetails.module.css";
 import PaymentForm from "../components/PaymentForm";
 import PaymentList from "../components/PaymentList";
+import { useDateFormat } from "../utils/dateFormat";
 
 const ExpenseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const { formatDate } = useDateFormat();
 
   const {
     data: expense,
@@ -72,7 +74,7 @@ const ExpenseDetails: React.FC = () => {
             </div>
             <div>
               <label>Due Date</label>
-              <p>{new Date(expense.dueDate).toLocaleDateString()}</p>
+              <p>Due Date: {formatDate(expense.dueDate)}</p>
             </div>
             <div>
               <label>Recurrence</label>
@@ -82,7 +84,7 @@ const ExpenseDetails: React.FC = () => {
               <div>
                 <label>Recurrence End Date</label>
                 <p>
-                  {new Date(expense.recurrenceEndDate).toLocaleDateString()}
+                  Recurrence End Date: {formatDate(expense.recurrenceEndDate)}
                 </p>
               </div>
             )}

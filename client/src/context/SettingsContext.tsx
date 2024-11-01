@@ -1,10 +1,12 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 import { UserSettings } from "../types/settings";
 import { useAuth } from "./AuthContext";
+import { useUserSettings } from "../hooks/useUserSettings";
 
 interface SettingsContextType {
   settings: UserSettings;
   updateSettings: (newSettings: Partial<UserSettings>) => void;
+  isLoading: boolean;
 }
 
 const defaultSettings: UserSettings = {
@@ -31,22 +33,19 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { user } = useAuth();
-  const [settings, setSettings] = useState<UserSettings>(defaultSettings);
+  const {
+    settings = defaultSettings,
+    updateSettings,
+    isLoading,
+  } = useUserSettings();
 
   // Only provide settings context if user is authenticated
   if (!user) {
     return <>{children}</>;
   }
 
-  const updateSettings = (newSettings: Partial<UserSettings>) => {
-    setSettings((prev) => ({
-      ...prev,
-      ...newSettings,
-    }));
-  };
-
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings }}>
+    <SettingsContext.Provider value={{ settings, updateSettings, isLoading }}>
       {children}
     </SettingsContext.Provider>
   );

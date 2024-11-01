@@ -1,6 +1,7 @@
 import React from "react";
 import { Payment } from "../types/payment";
 import styles from "../styles/PaymentList.module.css";
+import { useDateFormat } from "../utils/dateFormat";
 
 interface PaymentListProps {
   payments: Payment[];
@@ -15,6 +16,8 @@ const PaymentList: React.FC<PaymentListProps> = ({
   onVerify,
   isVerifying = false,
 }) => {
+  const { formatDate } = useDateFormat();
+
   if (!payments.length) {
     return <p className={styles.emptyState}>No payments yet</p>;
   }
@@ -26,9 +29,7 @@ const PaymentList: React.FC<PaymentListProps> = ({
           <div className={styles.paymentInfo}>
             <div>
               <p className={styles.amount}>${payment.amount}</p>
-              <p className={styles.date}>
-                {new Date(payment.paymentDate).toLocaleDateString()}
-              </p>
+              <p className={styles.date}>{formatDate(payment.paymentDate)}</p>
             </div>
             <div className={styles.status}>
               <span
