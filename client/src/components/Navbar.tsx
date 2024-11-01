@@ -24,8 +24,14 @@ const Navbar: React.FC = () => {
           New Expense
         </Link>
         <div className={styles.userInfo}>
-          <img src={user.avatarUrl} alt={user.name} className={styles.avatar} />
-          <span>{user.name}</span>
+          <Link to="/profile" className={styles.profileLink}>
+            <img
+              src={user.avatarUrl}
+              alt={user.name}
+              className={styles.avatar}
+            />
+            <span>{user.name}</span>
+          </Link>
           <button onClick={handleLogout} className={styles.logoutButton}>
             Logout
           </button>

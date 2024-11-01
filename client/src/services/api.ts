@@ -56,3 +56,8 @@ export const verifyPayment = async (
   });
   return response.data;
 };
+
+export const getExpenseStatistics = async () => {
+  const response = await api.get("/api/expenses/statistics");
+  return response.data;
+};

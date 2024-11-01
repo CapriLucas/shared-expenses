@@ -29,6 +29,4 @@ A React-based shared expenses management system that allows users to track and m
 
 ## Project Structure
 
-Instructions:
-I want to create a project with reactJS. Without any css library or components library as chakra-ui. This project will be a simple shared expenses system. Where we can create users (only using google oauth) and then each user will create shared expenses with another users (these can be recurrent per month, year, weeks). So then the other user can create a pay confirmed request uploading a file with the transfer receipt.
-As Database I want to use any cheap sql (mysql, postgresql) with typeorm as ORM
+### Missing features

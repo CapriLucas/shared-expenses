@@ -172,20 +172,26 @@ export const getExpenseStatistics = async (req: AuthRequest, res: Response) => {
     const stats = await getDataSource()
       .getRepository(Expense)
       .createQueryBuilder("expense")
+      .leftJoin("expense.creator", "creator")
+      .leftJoin("expense.payer", "payer")
       .select([
-        "SUM(CASE WHEN expense.isPaid = true THEN expense.amount ELSE 0 END)",
-        "totalPaid",
-        "SUM(CASE WHEN expense.isPaid = false THEN expense.amount ELSE 0 END)",
-        "totalPending",
-        "COUNT(*)",
-        "totalExpenses",
+        "COALESCE(SUM(CASE WHEN expense.isPaid = true THEN expense.amount ELSE 0 END), 0) as totalpaid",
+        "COALESCE(SUM(CASE WHEN expense.isPaid = false THEN expense.amount ELSE 0 END), 0) as totalpending",
+        "COUNT(*) as totalexpenses",
       ])
-      .where("expense.creator.id = :userId OR expense.payer.id = :userId", {
+      .where("creator.id = :userId OR payer.id = :userId", {
         userId: req.user!.id,
       })
       .getRawOne();
 
-    return res.json(stats);
+    // Transform the results to match the expected format
+    const formattedStats = {
+      totalPaid: parseFloat(stats.totalpaid) || 0,
+      totalPending: parseFloat(stats.totalpending) || 0,
+      totalExpenses: parseInt(stats.totalexpenses) || 0,
+    };
+
+    return res.json(formattedStats);
   } catch (error) {
     console.error("Get expense statistics error:", error);
     return res
