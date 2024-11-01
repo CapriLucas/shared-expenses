@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import styles from "../styles/Dashboard.module.css";
 import { Expense } from "../types/expense";
 
-type TabType = "created" | "payable";
+type TabType = "created" | "payable" | "paid";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -22,14 +22,31 @@ const Dashboard: React.FC = () => {
   if (error) return <div>Error loading expenses</div>;
 
   const createdExpenses = expenses?.filter(
-    (expense) => expense.creator.id === user?.id
+    (expense) => expense.creator.id === user?.id && !expense.isPaid
   );
   const payableExpenses = expenses?.filter(
-    (expense) => expense.payer.id === user?.id
+    (expense) => expense.payer.id === user?.id && !expense.isPaid
+  );
+  const paidExpenses = expenses?.filter(
+    (expense) =>
+      (expense.creator.id === user?.id || expense.payer.id === user?.id) &&
+      expense.isPaid
   );
 
-  const activeExpenses =
-    activeTab === "created" ? createdExpenses : payableExpenses;
+  const getActiveExpenses = () => {
+    switch (activeTab) {
+      case "created":
+        return createdExpenses;
+      case "payable":
+        return payableExpenses;
+      case "paid":
+        return paidExpenses;
+      default:
+        return [];
+    }
+  };
+
+  const activeExpenses = getActiveExpenses();
 
   return (
     <div className={styles.dashboard}>
@@ -57,6 +74,14 @@ const Dashboard: React.FC = () => {
         >
           To Pay ({payableExpenses?.length || 0})
         </button>
+        <button
+          className={`${styles.tab} ${
+            activeTab === "paid" ? styles.activeTab : ""
+          }`}
+          onClick={() => setActiveTab("paid")}
+        >
+          Paid ({paidExpenses?.length || 0})
+        </button>
       </div>
 
       <div className={styles.expenseList}>
@@ -74,7 +99,11 @@ const Dashboard: React.FC = () => {
               <div>
                 <p>Due: {new Date(expense.dueDate).toLocaleDateString()}</p>
                 <p className={styles.participant}>
-                  {activeTab === "created"
+                  {activeTab === "paid"
+                    ? expense.creator.id === user?.id
+                      ? `Paid by: ${expense.payer.name}`
+                      : `Created by: ${expense.creator.name}`
+                    : activeTab === "created"
                     ? `Payer: ${expense.payer.name}`
                     : `Created by: ${expense.creator.name}`}
                 </p>
@@ -94,8 +123,13 @@ const Dashboard: React.FC = () => {
         {activeExpenses?.length === 0 && (
           <div className={styles.emptyState}>
             <p>
-              No {activeTab === "created" ? "created" : "payable"} expenses
-              found
+              No{" "}
+              {activeTab === "paid"
+                ? "paid"
+                : activeTab === "created"
+                ? "created"
+                : "payable"}{" "}
+              expenses found
             </p>
           </div>
         )}

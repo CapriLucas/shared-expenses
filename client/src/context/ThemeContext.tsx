@@ -16,8 +16,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const { settings, updateSettings } = useUserSettings();
 
   useEffect(() => {
-    console.log("settings", settings);
-
     // Apply theme to HTML element instead of document
     const theme = settings?.display.theme || "light";
     document.documentElement.setAttribute("data-theme", theme);
