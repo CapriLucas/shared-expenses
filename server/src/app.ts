@@ -5,6 +5,8 @@ import { config } from "dotenv";
 import authRoutes from "./routes/auth";
 import expenseRoutes from "./routes/expenses";
 import paymentRoutes from "./routes/payments";
+import userRoutes from "./routes/users";
+import healthRoutes from "./routes/health";
 import { setupSwagger } from "./swagger";
 import { errorHandler } from "./middleware/error";
 
@@ -21,6 +23,9 @@ app.use(
   express.static(path.join(__dirname, `../${process.env.UPLOAD_DIR}`))
 );
 
+// Health check route (before other routes)
+app.use("/health", healthRoutes);
+
 // Setup Swagger
 setupSwagger(app);
 
@@ -28,6 +33,7 @@ setupSwagger(app);
 app.use("/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/users", userRoutes);
 
 // Error handling
 app.use(errorHandler);

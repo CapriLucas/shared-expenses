@@ -284,6 +284,154 @@ const swaggerDocument = {
         },
       },
     },
+    "/health": {
+      get: {
+        tags: ["Health"],
+        summary: "Check API health status",
+        description:
+          "Returns the health status of the API and its dependencies",
+        responses: {
+          200: {
+            description: "Service is healthy",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["status", "timestamp", "services"],
+                  properties: {
+                    status: {
+                      type: "string",
+                      enum: ["healthy", "unhealthy"],
+                      example: "healthy",
+                    },
+                    timestamp: {
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-03-21T14:30:00Z",
+                    },
+                    services: {
+                      type: "object",
+                      properties: {
+                        database: {
+                          type: "string",
+                          enum: ["connected", "disconnected"],
+                          example: "connected",
+                        },
+                        storage: {
+                          type: "string",
+                          enum: ["configured", "not configured"],
+                          example: "configured",
+                        },
+                      },
+                    },
+                    version: {
+                      type: "string",
+                      example: "1.0.0",
+                    },
+                    environment: {
+                      type: "string",
+                      enum: ["development", "test", "production"],
+                      example: "development",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          503: {
+            description: "Service is unhealthy",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["status", "timestamp", "error"],
+                  properties: {
+                    status: {
+                      type: "string",
+                      enum: ["unhealthy"],
+                      example: "unhealthy",
+                    },
+                    timestamp: {
+                      type: "string",
+                      format: "date-time",
+                      example: "2024-03-21T14:30:00Z",
+                    },
+                    error: {
+                      type: "string",
+                      example: "Service unavailable",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/users/search": {
+      get: {
+        tags: ["Users"],
+        summary: "Search users by name or email",
+        security: [{ BearerAuth: [] }],
+        parameters: [
+          {
+            in: "query",
+            name: "query",
+            required: true,
+            schema: {
+              type: "string",
+              minLength: 2,
+            },
+            description: "Search query (minimum 2 characters)",
+          },
+        ],
+        responses: {
+          200: {
+            description: "List of users matching the search query",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/User",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/users/{id}": {
+      get: {
+        tags: ["Users"],
+        summary: "Get user profile by ID",
+        security: [{ BearerAuth: [] }],
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            schema: {
+              type: "integer",
+            },
+            description: "User ID",
+          },
+        ],
+        responses: {
+          200: {
+            description: "User profile",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/User",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
 };
 
