@@ -2,6 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useAuth } from "../context/AuthContext";
 import { getExpenseStatistics } from "../services/api";
+import Settings from "../components/Settings";
+import { LoadingState } from "../components/LoadingState";
 import styles from "../styles/UserProfile.module.css";
 
 interface Statistics {
@@ -17,7 +19,7 @@ const UserProfile: React.FC = () => {
     getExpenseStatistics
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingState />;
 
   return (
     <div className={styles.container}>
@@ -51,45 +53,9 @@ const UserProfile: React.FC = () => {
         </div>
       </div>
 
-      <div className={styles.settings}>
+      <div className={styles.section}>
         <h2>Settings</h2>
-        <div className={styles.settingsForm}>
-          <div className={styles.settingGroup}>
-            <h3>Notifications</h3>
-            <label className={styles.checkbox}>
-              <input type="checkbox" defaultChecked />
-              Email notifications for new expenses
-            </label>
-            <label className={styles.checkbox}>
-              <input type="checkbox" defaultChecked />
-              Email notifications for payments
-            </label>
-            <label className={styles.checkbox}>
-              <input type="checkbox" defaultChecked />
-              Email notifications for due dates
-            </label>
-          </div>
-
-          <div className={styles.settingGroup}>
-            <h3>Display</h3>
-            <label className={styles.select}>
-              Currency
-              <select defaultValue="USD">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="GBP">GBP (£)</option>
-              </select>
-            </label>
-            <label className={styles.select}>
-              Date Format
-              <select defaultValue="MM/DD/YYYY">
-                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-              </select>
-            </label>
-          </div>
-        </div>
+        <Settings />
       </div>
     </div>
   );

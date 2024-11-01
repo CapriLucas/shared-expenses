@@ -37,11 +37,14 @@ export class Expense {
   })
   recurrenceType: RecurrenceType;
 
-  @Column({
-    type: "timestamp with time zone",
-    nullable: true,
-  })
+  @Column({ type: "timestamp with time zone", nullable: true })
   recurrenceEndDate: Date | null;
+
+  @Column({ type: "timestamp with time zone", nullable: true })
+  lastRecurrence: Date | null;
+
+  @ManyToOne(() => Expense, { nullable: true })
+  parentExpense: Expense | null;
 
   @ManyToOne(() => User, (user) => user.createdExpenses)
   creator: User;

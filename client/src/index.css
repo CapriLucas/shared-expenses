@@ -22,4 +22,25 @@ code {
 .main-content {
   flex: 1;
   padding: 2rem;
+  background-color: var(--background-color);
+  min-height: calc(100vh - 64px);
+}
+
+input,
+select,
+textarea {
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+button {
+  font-family: inherit;
 }

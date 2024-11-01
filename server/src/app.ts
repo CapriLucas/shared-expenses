@@ -7,6 +7,7 @@ import expenseRoutes from "./routes/expenses";
 import paymentRoutes from "./routes/payments";
 import userRoutes from "./routes/users";
 import healthRoutes from "./routes/health";
+import settingsRoutes from "./routes/settings";
 import { setupSwagger } from "./swagger";
 import { errorHandler } from "./middleware/error";
 
@@ -33,6 +34,7 @@ setupSwagger(app);
 app.use("/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/settings", settingsRoutes);
 app.use("/api/users", userRoutes);
 
 // Error handling

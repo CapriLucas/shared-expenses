@@ -2,6 +2,7 @@ import axios from "axios";
 import { User } from "../types/user";
 import { Expense } from "../types/expense";
 import { Payment } from "../types/payment";
+import { UserSettings } from "../types/settings";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -59,5 +60,15 @@ export const verifyPayment = async (
 
 export const getExpenseStatistics = async () => {
   const response = await api.get("/api/expenses/statistics");
+  return response.data;
+};
+
+export const getUserSettings = async () => {
+  const response = await api.get("/api/settings");
+  return response.data;
+};
+
+export const updateUserSettings = async (settings: Partial<UserSettings>) => {
+  const response = await api.patch("/api/settings", settings);
   return response.data;
 };

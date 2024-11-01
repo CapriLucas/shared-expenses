@@ -3,7 +3,7 @@ import { newDb, IMemoryDb } from "pg-mem";
 import { User } from "./entities/User";
 import { Expense } from "./entities/Expense";
 import { Payment } from "./entities/Payment";
-import { Notification } from "./entities/Notification";
+import { UserSettings } from "./entities/UserSettings";
 
 export const getTestDataSource = async (): Promise<DataSource> => {
   const db: IMemoryDb = newDb({
@@ -37,7 +37,7 @@ export const getTestDataSource = async (): Promise<DataSource> => {
   // Create the test data source with minimal configuration
   const dataSource = await db.adapters.createTypeormDataSource({
     type: "postgres",
-    entities: [User, Expense, Payment, Notification],
+    entities: [User, Expense, Payment, UserSettings],
     synchronize: true,
     logging: false,
     dropSchema: true,

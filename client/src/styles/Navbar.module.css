@@ -1,14 +1,15 @@
 .navbar {
-  background-color: #ffffff;
+  background-color: var(--surface-color);
   padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .logo a {
-  color: #333;
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
@@ -21,7 +22,7 @@
 }
 
 .newExpense {
-  background-color: #4caf50;
+  background-color: var(--primary-color);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -30,13 +31,17 @@
 }
 
 .newExpense:hover {
-  background-color: #45a049;
+  background-color: var(--primary-hover);
 }
 
 .userInfo {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.userInfo span {
+  color: var(--text-primary);
 }
 
 .avatar {
@@ -47,8 +52,8 @@
 
 .logoutButton {
   background: none;
-  border: 1px solid #dc3545;
-  color: #dc3545;
+  border: 1px solid var(--error-color);
+  color: var(--error-color);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -56,6 +61,19 @@
 }
 
 .logoutButton:hover {
-  background-color: #dc3545;
+  background-color: var(--error-color);
   color: white;
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: opacity 0.2s;
+}
+
+.profileLink:hover {
+  opacity: 0.8;
 }
