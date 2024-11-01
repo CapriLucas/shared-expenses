@@ -29,10 +29,8 @@ export const uploadFile = async (
       });
 
       blobStream.on("finish", async () => {
-        // Make the file public
-        await blob.makePublic();
-
-        // Get public URL
+        // Since uniform bucket-level access is enabled, we don't need to make individual files public
+        // Instead, we'll use a signed URL or the public URL if the bucket is public
         const publicUrl = format(
           `https://storage.googleapis.com/${bucket.name}/${blob.name}`
         );
@@ -43,6 +41,7 @@ export const uploadFile = async (
       blobStream.end(file.buffer);
     });
   } catch (error) {
+    console.error("Upload error:", error);
     throw new Error("Failed to upload file");
   }
 };
@@ -55,6 +54,7 @@ export const deleteFile = async (fileUrl: string): Promise<void> => {
     const file = bucket.file(`receipts/${fileName}`);
     await file.delete();
   } catch (error) {
+    console.error("Delete error:", error);
     throw new Error("Failed to delete file");
   }
 };

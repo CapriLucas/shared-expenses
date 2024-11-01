@@ -1,6 +1,7 @@
 import axios from "axios";
 import { User } from "../types/user";
 import { Expense } from "../types/expense";
+import { Payment } from "../types/payment";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -34,5 +35,24 @@ export const createExpense = async (
 
 export const getExpenseById = async (id: string): Promise<Expense> => {
   const response = await api.get(`/api/expenses/${id}`);
+  return response.data;
+};
+
+export const createPayment = async (formData: FormData): Promise<Payment> => {
+  const response = await api.post("/api/payments", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+export const verifyPayment = async (
+  paymentId: number,
+  isVerified: boolean
+): Promise<Payment> => {
+  const response = await api.patch(`/api/payments/${paymentId}/verify`, {
+    isVerified,
+  });
   return response.data;
 };

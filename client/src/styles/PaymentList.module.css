@@ -1,0 +1,94 @@
+.paymentList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.paymentCard {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.paymentInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.date {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.status {
+  text-align: right;
+}
+
+.statusBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.verified {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.paymentActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.viewReceipt {
+  color: #2196f3;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.viewReceipt:hover {
+  text-decoration: underline;
+}
+
+.verifyButton {
+  background: none;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.verifyButton:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.emptyState {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+}

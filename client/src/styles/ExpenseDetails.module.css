@@ -1,0 +1,96 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.mainInfo {
+  flex: 1;
+}
+
+.mainInfo h1 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.status {
+  text-align: right;
+}
+
+.statusBadge {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.paid {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.infoCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.infoCard h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.infoGrid label {
+  display: block;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.infoGrid p {
+  margin: 0;
+  color: #333;
+}
+
+.paymentsSection {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.paymentsSection h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+}

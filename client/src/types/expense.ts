@@ -1,3 +1,5 @@
+import { Payment } from "./payment";
+
 export enum RecurrenceType {
   NONE = "none",
   WEEKLY = "weekly",
@@ -25,6 +27,7 @@ export interface Expense {
     email: string;
     avatarUrl: string;
   };
+  payments: Payment[];
   createdAt: string;
   updatedAt: string;
 }

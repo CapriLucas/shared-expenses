@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ExpenseForm from "./pages/ExpenseForm";
-//import ExpenseDetails from "./pages/ExpenseDetails";
+import ExpenseDetails from "./pages/ExpenseDetails";
 
 const queryClient = new QueryClient();
 
@@ -39,14 +39,14 @@ function App() {
                       </PrivateRoute>
                     }
                   />
-                  {/* <Route
+                  <Route
                     path="/expenses/:id"
                     element={
                       <PrivateRoute>
                         <ExpenseDetails />
                       </PrivateRoute>
                     }
-                  /> */}
+                  />
                 </Routes>
               </main>
             </div>
