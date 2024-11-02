@@ -1,11 +1,20 @@
 import { AppDataSource } from "./data-source";
+import healthRoutes from "./routes/health";
 import app from "./app";
 import { initializeCronJobs } from "./services/cron";
 
-// Initialize database connection
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Data Source has been initialized!");
+const startServer = async () => {
+  try {
+    // Initialize database connection
+    await AppDataSource.initialize();
+
+    // Synchronize database schema
+    await AppDataSource.synchronize();
+
+    console.log("Database connected and synchronized");
+
+    // Add health routes first
+    app.use(healthRoutes);
 
     // Initialize cron jobs
     initializeCronJobs();
@@ -18,7 +27,10 @@ AppDataSource.initialize()
         `API Documentation available at http://localhost:${PORT}/api-docs`
       );
     });
-  })
-  .catch((error) =>
-    console.log("Error during Data Source initialization:", error)
-  );
+  } catch (error) {
+    console.error("Error starting server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
