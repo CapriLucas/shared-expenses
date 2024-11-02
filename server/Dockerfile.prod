@@ -3,14 +3,13 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy only server files
+COPY server/package*.json ./
+COPY server/tsconfig.json ./
+COPY server/src ./src
 
 # Install dependencies including dev dependencies
 RUN npm ci
-
-# Copy source code
-COPY . .
 
 # Build TypeScript
 RUN npm run build
@@ -20,8 +19,8 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy only server package files
+COPY server/package*.json ./
 
 # Install only production dependencies
 RUN npm ci --only=production
