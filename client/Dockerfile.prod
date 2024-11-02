@@ -3,6 +3,10 @@ FROM node:18-alpine as builder
 
 WORKDIR /app
 
+# Set the API URL during build time
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 # Copy package files
 COPY client/package*.json ./
 
@@ -17,6 +21,10 @@ RUN npm run build
 
 # Production stage
 FROM node:18-alpine
+
+# Set the API URL during build time
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 WORKDIR /app
 
