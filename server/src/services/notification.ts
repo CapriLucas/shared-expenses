@@ -24,4 +24,5 @@ const sendEmail = async (to: string, subject: string, body: string) => {
   // Implement email sending logic here
   // You might want to use a service like SendGrid, AWS SES, etc.
   console.log(`Sending email to ${to}: ${subject}`);
+  console.log(body);
 };
