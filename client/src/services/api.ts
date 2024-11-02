@@ -8,6 +8,41 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
+// Add request interceptor
+api.interceptors.request.use(
+  (config) => {
+    console.log("API Request:", {
+      url: config.url,
+      baseURL: config.baseURL,
+      method: config.method,
+    });
+    return config;
+  },
+  (error) => {
+    console.error("API Request Error:", error);
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor
+api.interceptors.response.use(
+  (response) => {
+    console.log("API Response:", {
+      status: response.status,
+      data: response.data,
+    });
+    return response;
+  },
+  (error) => {
+    console.error("API Response Error:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
+    return Promise.reject(error);
+  }
+);
+
 // Add token to requests
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -16,6 +51,19 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Add simple health check
+export const checkHealth = async () => {
+  try {
+    console.log("Checking API health at:", process.env.REACT_APP_API_URL);
+    const response = await api.get("/health");
+    console.log("Health check response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Health check failed:", error);
+    return null;
+  }
+};
 
 export const searchUsers = async (query: string): Promise<User[]> => {
   const response = await api.get(`/api/users/search?query=${query}`);
