@@ -77,3 +77,15 @@
 .profileLink:hover {
   opacity: 0.8;
 }
+
+.menuItem {
+  padding: 0.5rem 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: var(--background-color);
+}

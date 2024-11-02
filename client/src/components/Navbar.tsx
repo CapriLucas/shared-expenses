@@ -20,8 +20,11 @@ const Navbar: React.FC = () => {
         <Link to="/">Shared Expenses</Link>
       </div>
       <div className={styles.menu}>
-        <Link to="/expenses/new" className={styles.newExpense}>
+        <Link to="/expenses/new" className={styles.menuItem}>
           New Expense
+        </Link>
+        <Link to="/quick-split" className={styles.menuItem}>
+          Quick Split
         </Link>
         <div className={styles.userInfo}>
           <Link to="/profile" className={styles.profileLink}>

@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import ExpenseForm from "./pages/ExpenseForm";
 import ExpenseDetails from "./pages/ExpenseDetails";
 import UserProfile from "./pages/UserProfile";
+import QuickSplit from "./pages/QuickSplit";
 import "./styles/theme.css";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,14 @@ function App() {
                         element={
                           <PrivateRoute>
                             <ExpenseDetails />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/quick-split"
+                        element={
+                          <PrivateRoute>
+                            <QuickSplit />
                           </PrivateRoute>
                         }
                       />
