@@ -5,7 +5,7 @@
     "dockerfilePath": "client/Dockerfile.prod"
   },
   "deploy": {
-    "startCommand": "nginx -g 'daemon off;'",
+    "startCommand": "serve -s build -l 3000 --single",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
     "numReplicas": 1,
